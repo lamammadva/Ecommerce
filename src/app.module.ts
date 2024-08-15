@@ -4,28 +4,27 @@ import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import * as entities from './entities'
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
+import config from './config/config';
+import { ProfileModule } from './auth/profile/profile.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get('DATABASE_HOST'),
-        port: +configService.get('DATABASE_PORT'),
-        username: configService.get('DATABASE_USERNAME'),
-        password: configService.get('DATABASE_PASSWORD'),
-        database: configService.get('DATABASE_NAME'),
-        entities,
-        synchronize: true,
-        logging:true
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: config.database.host,
+      port: +config.database.port,
+      username: config.database.username,
+      password: config.database.password,
+      database: config.database.database,
+      entities:[`${__dirname}/**/*.entity.{ts,js}`],//herdefe entity filelarini import etmek istemirikse bu formada yazilir
+      synchronize: true,
+      logging:true
       }),
-      inject: [ConfigService],
-    }),
-    UserModule
+    
+    UserModule,AuthModule,ProfileModule
   ],
   controllers: [AppController],
   providers: [AppService],
