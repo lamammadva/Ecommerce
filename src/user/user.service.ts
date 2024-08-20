@@ -16,6 +16,7 @@ export class UserService{
     find(where?:Partial<User>){
         return this.userRepo.find();
     }
+    
     findOne(where:FindOptionsWhere<User>,select?:UserKey[]){
         return this.userRepo.findOne({where,select});
     }

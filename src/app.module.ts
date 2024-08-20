@@ -8,6 +8,8 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import config from './config/config';
 import { ProfileModule } from './auth/profile/profile.module';
+import { ProductModule } from './product/product.module';
+import { CategoryModule } from './category/category.module';
 
 @Module({
   imports: [
@@ -24,7 +26,7 @@ import { ProfileModule } from './auth/profile/profile.module';
       logging:true
       }),
     
-    UserModule,AuthModule,ProfileModule
+    UserModule,AuthModule,ProfileModule, ProductModule, CategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
