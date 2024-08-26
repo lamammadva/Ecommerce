@@ -6,8 +6,10 @@ import { Product } from "./Product.entity";
 export class Category extends CommonEntity{
     @Column()
     name: string;
-    @ManyToMany(()=>Product,(product)=>product.categories)
-    @JoinTable()
+    @ManyToMany(()=>Product,(product)=>product.categories,)
+    @JoinTable({
+        name:'category_product'
+    })
     products: Product[];
 
 }

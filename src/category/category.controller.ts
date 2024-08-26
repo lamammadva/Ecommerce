@@ -14,7 +14,7 @@ export class CategoryController {
     }
     @Get(":id")
     item(@Param('id')  id:number){
-        return this.categoryService.findOne({where:{id}})
+        return this.categoryService.findOne({where:{id},relations:["products"]})
     }
 
     @Post()

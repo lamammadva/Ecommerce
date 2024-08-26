@@ -10,6 +10,7 @@ import config from './config/config';
 import { ProfileModule } from './auth/profile/profile.module';
 import { ProductModule } from './product/product.module';
 import { CategoryModule } from './category/category.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
@@ -26,7 +27,7 @@ import { CategoryModule } from './category/category.module';
       logging:true
       }),
     
-    UserModule,AuthModule,ProfileModule, ProductModule, CategoryModule,
+    UserModule,AuthModule,ProfileModule, ProductModule, CategoryModule,OrderModule
   ],
   controllers: [AppController],
   providers: [AppService],

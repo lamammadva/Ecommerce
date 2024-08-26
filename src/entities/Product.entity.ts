@@ -13,8 +13,10 @@ export class Product extends CommonEntity{
     description: string;
     @Column()
     image:string;
-    @ManyToMany(()=>Category,(category)=>category.products)
-    categories: Category[];
+    @ManyToMany(()=>Category,(category)=>category.products,
+    {onDelete:'CASCADE'})
+    categories: Partial<Category>[];
+    
 
 
 

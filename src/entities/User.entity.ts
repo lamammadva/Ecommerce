@@ -1,6 +1,7 @@
-import { BeforeInsert, Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import {  CommonEntity } from "./Base.entity";
 import  * as bcrypt  from 'bcrypt'
+import { Order } from "./Order.entity";
 
 @Entity()
 export class User extends CommonEntity{
@@ -21,5 +22,7 @@ export class User extends CommonEntity{
         this.password= await bcrypt.hash(this.password,10)
 
     }
+    @OneToMany(()=>Order,(order) => order.user,{onDelete : "CASCADE"})
+    orders:Order[]
 
 }

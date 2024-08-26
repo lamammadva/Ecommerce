@@ -9,15 +9,16 @@ export class CategoryService {
     constructor(@InjectRepository(Category) private categoryRepo:Repository<Category> ) {}
 
     find(params?:FindCategoryParams){
-        let {where,select} = params || {}
-        return this.categoryRepo.find({where,select});
+        let {where,select,relations} = params || {}
+        return this.categoryRepo.find({where,select,relations});
 
 
 
     }
     findOne(params?:FindCategoryParams){
-        let {where,select} = params || {}
-        return this.categoryRepo.findOne({where,select});
+        let {where,select,relations} = params || {}
+        return this.categoryRepo.findOne({where,select,relations});
+        
     }
     findByIds(ids:number[]){
         return this.categoryRepo.find({where:{id:In(ids)},select:["id","name"]})
