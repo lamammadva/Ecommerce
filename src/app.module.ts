@@ -11,7 +11,8 @@ import { ProfileModule } from './auth/profile/profile.module';
 import { ProductModule } from './product/product.module';
 import { CategoryModule } from './category/category.module';
 import { OrderModule } from './order/order.module';
-
+import { MulterModule } from '@nestjs/platform-express';
+import {join} from 'path';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -24,10 +25,13 @@ import { OrderModule } from './order/order.module';
       database: config.database.database,
       entities:[`${__dirname}/**/*.entity.{ts,js}`],//herdefe entity filelarini import etmek istemirikse bu formada yazilir
       synchronize: true,
+      migrations:[`${__dirname}/**/migrations/*.js`],
+      migrationsRun:true,
       logging:true
       }),
-    
-    UserModule,AuthModule,ProfileModule, ProductModule, CategoryModule,OrderModule
+    UserModule,AuthModule,ProfileModule, ProductModule, CategoryModule,OrderModule,MulterModule.register({
+      dest:join(__dirname,'../uploads')
+    })
   ],
   controllers: [AppController],
   providers: [AppService],

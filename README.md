@@ -35,6 +35,9 @@ $ npm install
 ## Running the app
 
 ```bash
+# seed
+$ npm run seed
+
 # development
 $ npm run start
 
