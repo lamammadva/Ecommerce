@@ -18,7 +18,7 @@ export class UserService{
     }
     
     findOne(where:FindOptionsWhere<User>,select?:UserKey[]){
-        return this.userRepo.findOne({where,select});
+        return this.userRepo.findOne({where,select: ['id','password']});
     }
     async create(params:Partial<User>){
         let checkUser = await this.findOne({email:params.email})

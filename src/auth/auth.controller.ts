@@ -5,6 +5,7 @@ import { RegisterUserDto } from "./dto/register-user.dto";
 import { LoginUserDto } from "./dto/login-user.dto";
 import { ForgetPaswordDto } from "./dto/forget_password.dto";
 import { ResetPasswordDto } from "./dto/reset_password.dto";
+import { ChangePassworDto } from "./dto/change_password.dto";
 
 @Controller('auth')
 @ApiTags('Auth')
@@ -24,11 +25,11 @@ export class AuthController{
         ){
         return this.authService.register(body)
     }
-    @Get('/forget_password')
-    get_forget_password(){
-        return this.authService.
-
+    @Post('/change_password')
+    change_password(@Body() body:ChangePassworDto){
+    return this.authService.change_password(body)
     }
+
 
     @Post('/forget_password')
     forget_password(@Body() body:ForgetPaswordDto){

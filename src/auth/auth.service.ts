@@ -10,6 +10,7 @@ import { MailerService } from "@nestjs-modules/mailer";
 import { ForgetPaswordDto } from "./dto/forget_password.dto";
 import config from "src/config/config";
 import { ResetPasswordDto } from "./dto/reset_password.dto";
+import { ChangePassworDto } from "./dto/change_password.dto";
 @Injectable()
 export class AuthService {
   constructor(
@@ -91,7 +92,31 @@ export class AuthService {
     }
 
   }
+  async change_password(body:ChangePassworDto){
+    const user = await this.userService.findOne({email:body.email})
+    if(!user){
+      throw new NotFoundException()
+    }
+    
+    if (!user.password) {
+      throw new HttpException('User has no password set', 400);
+  }
+    
+    const check = await bcrypt.compare(body.password,user.password) 
+    console.log(check);
+    
+    if(!check){
+      throw new HttpException("old password is not correct",400)
+    }
+    const new_password = await bcrypt.hash(body.new_password,10)
+    await this.userService.update(user.id,{password:new_password})
+    return {
+      message:"password changed successfully",
+      status:true
+    }
 
+    
+  }
 
   validateUser() {
 

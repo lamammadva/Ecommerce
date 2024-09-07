@@ -33,8 +33,8 @@ export class User extends CommonEntity {
     activateExpire:Date;
 
     @BeforeInsert()
-    async beforeInsert() {
-        this.password = await bcrypt.hash(this.password, 10)
+    beforeInsert() {
+        this.password =  bcrypt.hashSync(this.password, 10)
 
     }
     @OneToMany(() => Order, (order) => order.user, { onDelete: "CASCADE" })

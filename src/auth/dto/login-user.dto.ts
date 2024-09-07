@@ -10,7 +10,7 @@ export class LoginUserDto {
 
     @Type()
     @IsString()
-    @ApiProperty({default:"Passw0rd!"})
+    @ApiProperty({default:"Passw0rd"})
     password: string;
 
 }
