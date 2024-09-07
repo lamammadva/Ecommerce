@@ -30,6 +30,9 @@ export class UserService{
         return user
 
     }
+    async update(id:number,body:Partial<User>){
+        return this.userRepo.update(id,body)
+    }
     
     
 

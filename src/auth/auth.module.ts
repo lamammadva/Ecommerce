@@ -14,6 +14,7 @@ import config from "src/config/config";
             signOptions: { expiresIn: '60m'},
           }),
         UserModule],
+        
 
     controllers: [AuthController],
     providers: [AuthService]

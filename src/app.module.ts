@@ -13,6 +13,10 @@ import { CategoryModule } from './category/category.module';
 import { OrderModule } from './order/order.module';
 import { MulterModule } from '@nestjs/platform-express';
 import {join} from 'path';
+import { UploadModule } from './upload/upload.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { MailerModule } from '@nestjs-modules/mailer';
+
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -29,9 +33,27 @@ import {join} from 'path';
       migrationsRun:true,
       logging:true
       }),
-    UserModule,AuthModule,ProfileModule, ProductModule, CategoryModule,OrderModule,MulterModule.register({
-      dest:join(__dirname,'../uploads')
-    })
+      // ServeStaticModule.forRoot({
+      //   rootPath: join(__dirname, '..', 'client'),
+      // }),
+
+
+      MailerModule.forRoot({
+        transport: {
+          host: 'smtp.gmail.com',
+          port: 587,
+          secure: false,
+          auth: {
+            user: 'lemanb.memmedova@gmail.com',
+            pass: "qxigqrpcggcfvskx",
+          },
+        },
+        
+       
+      }),
+    UserModule,AuthModule,ProfileModule, ProductModule, CategoryModule,OrderModule,UploadModule
+      
+  
   ],
   controllers: [AppController],
   providers: [AppService],

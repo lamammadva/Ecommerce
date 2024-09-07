@@ -1,6 +1,6 @@
 import { ApiProperty, PickType } from "@nestjs/swagger";
 import { Type } from "class-transformer";
-import { IsEmail, Matches } from "class-validator";
+import { IsEmail, IsNumber, IsString, Matches, isNumber } from "class-validator";
 
 export class LoginUserDto {
     @Type()
@@ -9,7 +9,7 @@ export class LoginUserDto {
     email: string;
 
     @Type()
-    @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&^])[A-Za-z\d@.#$!%*?&]{8,15}$/)
+    @IsString()
     @ApiProperty({default:"Passw0rd!"})
     password: string;
 

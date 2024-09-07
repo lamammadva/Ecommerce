@@ -1,7 +1,8 @@
-import { Column, Entity, ManyToMany } from "typeorm";
+import { Column, Entity, ManyToMany, OneToMany } from "typeorm";
 import { CommonEntity } from "./Base.entity";
 import { Category } from "./Category.entity";
 import { ApiTags } from "@nestjs/swagger";
+import { ImageEntity } from "./Image.entity";
 export type ProductKey = keyof Product;
 @Entity()
 export class Product extends CommonEntity{
@@ -11,13 +12,15 @@ export class Product extends CommonEntity{
     price: number;
     @Column()
     description: string;
-    @Column()
-    image:string;
+   
     @ManyToMany(()=>Category,(category)=>category.products,
     {onDelete:'CASCADE'})
     categories: Partial<Category>[];
     
-
-
-
+    
+    @OneToMany(() => ImageEntity, (image) => image.product, {
+        eager: true,
+    })
+    images: Partial<ImageEntity>[];
 }
+

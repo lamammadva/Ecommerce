@@ -26,6 +26,12 @@ export class User extends CommonEntity {
     @Column()
     lastname: string;
 
+    @Column({nullable: true})
+    activateToken: string;
+    
+    @Column({nullable: true})
+    activateExpire:Date;
+
     @BeforeInsert()
     async beforeInsert() {
         this.password = await bcrypt.hash(this.password, 10)
@@ -33,5 +39,8 @@ export class User extends CommonEntity {
     }
     @OneToMany(() => Order, (order) => order.user, { onDelete: "CASCADE" })
     orders: Order[]
-
+    
+    get fullName(){
+        return `${this.firstname} ${this.lastname}`
+    }
 }

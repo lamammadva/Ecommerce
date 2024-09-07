@@ -9,10 +9,11 @@ export default {
         username: process.env.DATABASE_USERNAME,
         password: process.env.DATABASE_PASSWORD,
         database: process.env.DATABASE_NAME,
-        port: process.env.DATABASE_PORT
-
-
+        port: process.env.DATABASE_PORT,
+        
+        
     },
+    url:process.env.APP_URL,
     jwtSecret : process.env.JWT_SECRET
 
 
