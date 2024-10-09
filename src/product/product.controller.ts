@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Injectable, Param, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Injectable, NotFoundException, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -8,11 +8,13 @@ import { Product } from 'src/entities/Product.entity';
 import { GetProductDto } from './dto/get-product.dto';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { UserRoles } from 'src/common/enum/user-roles.enum';
+import { ClsService } from 'nestjs-cls';
+import { User } from 'src/entities/User.entity';
 @Injectable()
 @Controller('product')
 @ApiTags("Product")
 export class ProductController {
-    constructor(private productService: ProductService) { }
+    constructor(private productService: ProductService,private cls:ClsService) { }
 
     @Get()
     find(@Query() query: GetProductDto) {
@@ -32,7 +34,7 @@ export class ProductController {
     }
     @ApiBearerAuth()
     @UseGuards(AuthGuard)
-    @Roles(UserRoles.ADMIN,UserRoles.CONTENT_MANAGER)
+    // @Roles(UserRoles.ADMIN,UserRoles.CONTENT_MANAGER)
     @Post()
     create(@Body() body: CreateProductDto): Promise<Product> {
         return this.productService.create(body)
@@ -40,7 +42,7 @@ export class ProductController {
 
     @ApiBearerAuth()
     @UseGuards(AuthGuard)
-    @Roles(UserRoles.ADMIN,UserRoles.CONTENT_MANAGER)
+    // @Roles(UserRoles.ADMIN,UserRoles.CONTENT_MANAGER)
     @Delete(":id")
     delete(@Param('id') id: number) {
         return this.productService.delete(id)
@@ -48,7 +50,7 @@ export class ProductController {
     }
     @ApiBearerAuth()
     @ApiOperation({ summary: "update product" })
-    @Roles(UserRoles.ADMIN,UserRoles.CONTENT_MANAGER)
+    // @Roles(UserRoles.ADMIN,UserRoles.CONTENT_MANAGER)
 
     @UseGuards(AuthGuard)
     @Post(":id")
@@ -56,7 +58,7 @@ export class ProductController {
         return this.productService.update(id, body)
 
     }
-
+ 
 
 
 

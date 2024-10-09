@@ -3,15 +3,17 @@ import { Product } from "src/entities/Product.entity";
 import { And, Between, ILike, In, LessThanOrEqual, MoreThanOrEqual, Repository } from "typeorm";
 import { FindProductParams } from "./product.types";
 import { CreateProductDto } from "./dto/create-product.dto";
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { UpdateProductDto } from "./dto/update-product.dto";
 import { CategoryService } from "src/category/category.service";
+import { User } from "src/entities/User.entity";
+import { ClsService } from "nestjs-cls";
 
 
 @Injectable()
 export class ProductService {
   constructor(
-    private categoryService: CategoryService,
+    private categoryService: CategoryService,private cls:ClsService,
     @InjectRepository(Product)
     private productRepo: Repository<Product>) { }
 
@@ -98,6 +100,7 @@ export class ProductService {
     return product
 
   }
+ 
 
 
 }

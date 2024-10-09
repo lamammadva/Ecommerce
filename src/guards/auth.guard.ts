@@ -1,11 +1,12 @@
 import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
+import { ClsService } from 'nestjs-cls';
 import { UserRoles } from 'src/common/enum/user-roles.enum';
 import { UserService } from 'src/user/user.service';
 @Injectable()
 export class AuthGuard implements CanActivate {
-    constructor(private jwtService: JwtService, private userService: UserService, private reflector:Reflector) { }
+    constructor(private jwtService: JwtService, private userService: UserService, private reflector:Reflector,private cls:ClsService) { }
 
 
     async canActivate(
@@ -26,10 +27,11 @@ export class AuthGuard implements CanActivate {
                 if (!checkRole) throw new UnauthorizedException();
             }
             request.user = user
+            this.cls.set('user',user)
+            return true
         } catch (error){
             throw new UnauthorizedException();
         }
-        return true
 
 
     }

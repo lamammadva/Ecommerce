@@ -11,7 +11,7 @@ import config from "src/config/config";
         JwtModule.register({
             global: true,
             secret: config.jwtSecret,
-            signOptions: { expiresIn: '60m'},
+            signOptions: { expiresIn: '60d'},
           }),
         UserModule],
         
